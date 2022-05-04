@@ -1,15 +1,17 @@
 package com.g123k.androidthings
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.things.contrib.driver.button.Button
+import com.google.android.things.contrib.driver.ht16k33.Ht16k33
+import com.google.android.things.contrib.driver.pwmservo.Servo
 import com.google.android.things.contrib.driver.rainbowhat.RainbowHat
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.time.toDuration
 
 
 // import the RainbowHat driver
@@ -19,6 +21,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //servo-moteur
+//        val servo = Servo("PWM0")
+//        servo.setPulseDurationRange(1.5, 2.0)
+//        servo.setAngleRange(-90.0, 90.0)
+//        servo.setEnabled(true)
+////        servo.angle = -180.0
+//        servo.angle = 90.0
+
+//        servo.angle = servo.minimumAngle;
+
+//        val servo = RainbowHat.openServo()
+//        servo.setPulseDurationRange(1.5, 2.0)
+////        servo.setAngleRange(180.0, -180.0);
+//        servo.setEnabled(true);
+//        servo.angle = 90.0
+
 
 //        // Gérer la pression
 //        GlobalScope.launch { // launch a new coroutine and continue
@@ -88,20 +107,20 @@ class MainActivity : AppCompatActivity() {
         // Effet arc-en-ciel
 //        GlobalScope.launch { // launch a new coroutine and continue
 //            val ledstrip = RainbowHat.openLedStrip()
-//            val rainbow = IntArray(RainbowHat.LEDSTRIP_LENGTH)
+//            var rainbow = IntArray(RainbowHat.LEDSTRIP_LENGTH)
 //            ledstrip.brightness = 1
 //            var t = 0
+//            for (i in rainbow.indices) {
+//                rainbow[i] = Color.HSVToColor(255, floatArrayOf(i * 360f / rainbow.size, 1.0f, 1.0f))
+//            }
+//            ledstrip.write(rainbow)
+//            var mutable = rainbow.toMutableList()
 //            while (true) {
-//                t++
-//                for (i in rainbow.indices) {
-//                    rainbow[i] = Color.HSVToColor(
-//                        255,
-//                        floatArrayOf((((360f / rainbow.size - 1) * i + t) % 360f), 1.0f, 1.0f)
-//                    )
-//                }
-//                ledstrip.write(rainbow)
-//
-//                delay(1)
+//                delay(100)
+//                var i0 = mutable[0]
+//                mutable.removeAt(0)
+//                mutable.add(i0)
+//                ledstrip.write(mutable.toIntArray())
 //            }
 //        }
 
@@ -137,82 +156,82 @@ class MainActivity : AppCompatActivity() {
 //    }
         // Defining frequency of each music note
 
-
-        GlobalScope.launch {
-            val NOTE_C4 = 262
-            val NOTE_D4 = 294
-            val NOTE_E4 = 330
-            val NOTE_F4 = 349
-            val NOTE_G4 = 392
-            val NOTE_A4 = 440
-            val NOTE_B4 = 494
-            val NOTE_C5 = 523
-            val NOTE_D5 = 587
-            val NOTE_E5 = 659
-            val NOTE_F5 = 698
-            val NOTE_G5 = 784
-            val NOTE_A5 = 880
-            val NOTE_B5 = 988
-
-            val notes = intArrayOf(NOTE_E4, NOTE_G4, NOTE_A4, NOTE_A4, 0, NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_C5, NOTE_D5, NOTE_B4, NOTE_B4, 0, NOTE_A4, NOTE_G4, NOTE_A4, 0,NOTE_E4, NOTE_G4, NOTE_A4, NOTE_A4, 0,NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_C5, NOTE_D5, NOTE_B4, NOTE_B4, 0,NOTE_A4, NOTE_G4, NOTE_A4, 0,NOTE_E4, NOTE_G4, NOTE_A4, NOTE_A4, 0,NOTE_A4, NOTE_C5, NOTE_D5, NOTE_D5, 0,NOTE_D5, NOTE_E5, NOTE_F5, NOTE_F5, 0,NOTE_E5, NOTE_D5, NOTE_E5, NOTE_A4, 0,NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_D5, NOTE_E5, NOTE_A4, 0,NOTE_A4, NOTE_C5, NOTE_B4, NOTE_B4, 0,NOTE_C5, NOTE_A4, NOTE_B4, 0,NOTE_A4, NOTE_A4, NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_C5, NOTE_D5, NOTE_B4, NOTE_B4, 0,NOTE_A4, NOTE_G4, NOTE_A4, 0,NOTE_E4, NOTE_G4, NOTE_A4, NOTE_A4, 0,NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_C5, NOTE_D5, NOTE_B4, NOTE_B4, 0,NOTE_A4, NOTE_G4, NOTE_A4, 0,NOTE_E4, NOTE_G4, NOTE_A4, NOTE_A4, 0,NOTE_A4, NOTE_C5, NOTE_D5, NOTE_D5, 0,NOTE_D5, NOTE_E5, NOTE_F5, NOTE_F5, 0,NOTE_E5, NOTE_D5, NOTE_E5, NOTE_A4, 0,NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_D5, NOTE_E5, NOTE_A4, 0,NOTE_A4, NOTE_C5, NOTE_B4, NOTE_B4, 0,NOTE_C5, NOTE_A4, NOTE_B4, 0,NOTE_E5, 0, 0, NOTE_F5, 0, 0,NOTE_E5, NOTE_E5, 0, NOTE_G5, 0, NOTE_E5, NOTE_D5, 0, 0,NOTE_D5, 0, 0, NOTE_C5, 0, 0,NOTE_B4, NOTE_C5, 0, NOTE_B4, 0, NOTE_A4,NOTE_E5, 0, 0, NOTE_F5, 0, 0,NOTE_E5, NOTE_E5, 0, NOTE_G5, 0, NOTE_E5, NOTE_D5, 0, 0,NOTE_D5, 0, 0, NOTE_C5, 0, 0,NOTE_B4, NOTE_C5, 0, NOTE_B4, 0, NOTE_A4)
-
-            val durations = intArrayOf(
-                125, 125, 250, 125, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 375, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 375, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 125, 250, 125,
-                125, 125, 250, 125, 125,
-                250, 125, 250, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 375, 375,
-                250, 125,  //Rpeat of First Part
-                125, 125, 250, 125, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 375, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 375, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 125, 250, 125,
-                125, 125, 250, 125, 125,
-                250, 125, 250, 125,
-                125, 125, 250, 125, 125,
-                125, 125, 375, 375,  //End of Repeat
-                250, 125, 375, 250, 125, 375,
-                125, 125, 125, 125, 125, 125, 125, 125, 375,
-                250, 125, 375, 250, 125, 375,
-                125, 125, 125, 125, 125, 500,
-                250, 125, 375, 250, 125, 375,
-                125, 125, 125, 125, 125, 125, 125, 125, 375,
-                250, 125, 375, 250, 125, 375,
-                125, 125, 125, 125, 125, 500
-            )
-            val buzzer = RainbowHat.openPiezo()
-            for (i in 0..notes.size) {
-                Log.d("Notes", notes[i].toString())
-                Log.d("Duration", durations[i].toString())
-
-                if(notes[i] == 0){
-                    buzzer.stop();
-                }else{
-                    buzzer.play(notes[i].toDouble())
-                }
-                delay(durations[i].toLong())
-            }
-            buzzer.stop();
-
-        }
+    // pirate
+//        GlobalScope.launch {
+//            val NOTE_C4 = 262
+//            val NOTE_D4 = 294
+//            val NOTE_E4 = 330
+//            val NOTE_F4 = 349
+//            val NOTE_G4 = 392
+//            val NOTE_A4 = 440
+//            val NOTE_B4 = 494
+//            val NOTE_C5 = 523
+//            val NOTE_D5 = 587
+//            val NOTE_E5 = 659
+//            val NOTE_F5 = 698
+//            val NOTE_G5 = 784
+//            val NOTE_A5 = 880
+//            val NOTE_B5 = 988
+//
+//            val notes = intArrayOf(NOTE_E4, NOTE_G4, NOTE_A4, NOTE_A4, 0, NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_C5, NOTE_D5, NOTE_B4, NOTE_B4, 0, NOTE_A4, NOTE_G4, NOTE_A4, 0,NOTE_E4, NOTE_G4, NOTE_A4, NOTE_A4, 0,NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_C5, NOTE_D5, NOTE_B4, NOTE_B4, 0,NOTE_A4, NOTE_G4, NOTE_A4, 0,NOTE_E4, NOTE_G4, NOTE_A4, NOTE_A4, 0,NOTE_A4, NOTE_C5, NOTE_D5, NOTE_D5, 0,NOTE_D5, NOTE_E5, NOTE_F5, NOTE_F5, 0,NOTE_E5, NOTE_D5, NOTE_E5, NOTE_A4, 0,NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_D5, NOTE_E5, NOTE_A4, 0,NOTE_A4, NOTE_C5, NOTE_B4, NOTE_B4, 0,NOTE_C5, NOTE_A4, NOTE_B4, 0,NOTE_A4, NOTE_A4, NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_C5, NOTE_D5, NOTE_B4, NOTE_B4, 0,NOTE_A4, NOTE_G4, NOTE_A4, 0,NOTE_E4, NOTE_G4, NOTE_A4, NOTE_A4, 0,NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_C5, NOTE_D5, NOTE_B4, NOTE_B4, 0,NOTE_A4, NOTE_G4, NOTE_A4, 0,NOTE_E4, NOTE_G4, NOTE_A4, NOTE_A4, 0,NOTE_A4, NOTE_C5, NOTE_D5, NOTE_D5, 0,NOTE_D5, NOTE_E5, NOTE_F5, NOTE_F5, 0,NOTE_E5, NOTE_D5, NOTE_E5, NOTE_A4, 0,NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, 0,NOTE_D5, NOTE_E5, NOTE_A4, 0,NOTE_A4, NOTE_C5, NOTE_B4, NOTE_B4, 0,NOTE_C5, NOTE_A4, NOTE_B4, 0,NOTE_E5, 0, 0, NOTE_F5, 0, 0,NOTE_E5, NOTE_E5, 0, NOTE_G5, 0, NOTE_E5, NOTE_D5, 0, 0,NOTE_D5, 0, 0, NOTE_C5, 0, 0,NOTE_B4, NOTE_C5, 0, NOTE_B4, 0, NOTE_A4,NOTE_E5, 0, 0, NOTE_F5, 0, 0,NOTE_E5, NOTE_E5, 0, NOTE_G5, 0, NOTE_E5, NOTE_D5, 0, 0,NOTE_D5, 0, 0, NOTE_C5, 0, 0,NOTE_B4, NOTE_C5, 0, NOTE_B4, 0, NOTE_A4)
+//
+//            val durations = intArrayOf(
+//                125, 125, 250, 125, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 375, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 375, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 125, 250, 125,
+//                125, 125, 250, 125, 125,
+//                250, 125, 250, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 375, 375,
+//                250, 125,  //Rpeat of First Part
+//                125, 125, 250, 125, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 375, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 375, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 125, 250, 125,
+//                125, 125, 250, 125, 125,
+//                250, 125, 250, 125,
+//                125, 125, 250, 125, 125,
+//                125, 125, 375, 375,  //End of Repeat
+//                250, 125, 375, 250, 125, 375,
+//                125, 125, 125, 125, 125, 125, 125, 125, 375,
+//                250, 125, 375, 250, 125, 375,
+//                125, 125, 125, 125, 125, 500,
+//                250, 125, 375, 250, 125, 375,
+//                125, 125, 125, 125, 125, 125, 125, 125, 375,
+//                250, 125, 375, 250, 125, 375,
+//                125, 125, 125, 125, 125, 500
+//            )
+//            val buzzer = RainbowHat.openPiezo()
+//            for (i in 0..notes.size) {
+//                Log.d("Notes", notes[i].toString())
+//                Log.d("Duration", durations[i].toString())
+//
+//                if(notes[i] == 0){
+//                    buzzer.stop();
+//                }else{
+//                    buzzer.play(notes[i].toDouble())
+//                }
+//                delay(durations[i].toLong())
+//            }
+//            buzzer.stop();
+//
+//        }
 
 
 // Close the device when done.
